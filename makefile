@@ -29,3 +29,15 @@ test:
 .PHONY: ass1-1
 ass1-1:
 	poetry run python $(ASS1)/task1.py
+
+.PHONY: ass1-2a
+ass1-2a:
+	poetry run python $(ASS1)/task2a.py
+
+.PHONY: ass1-2b
+ass1-2b:
+	poetry run python $(ASS1)/task2b.py
+
+.PHONY: ass1-2c
+ass1-2c:
+	poetry run python $(ASS1)/task2c.py
