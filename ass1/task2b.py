@@ -5,18 +5,18 @@ from common import POSITIONS, sum_of_square_error
 
 
 def second_degree_polynomial(a0, a1, a2, x):
-    return a0 + a1 * x + a2 * x**2
+    return a0 + a1 * x + a2 * (x**2)
 
 
 def high_order_gradient(x_s, y_s):
 
     def gradient_func(a0, a1, a2):
         y_pred = [second_degree_polynomial(a0, a1, a2, x) for x in x_s]
-
-        # partial derivative of the loss function with respect to a0 and a1
-        a0_grad = -2 * np.sum(y_s - y_pred)
-        a1_grad = -2 * np.sum((y_s - y_pred) * x_s)
-        a2_grad = -2 * np.sum((y_s - y_pred) * x_s**2)
+        residuals = y_s - y_pred
+        # partial derivative of the loss function with respect to a0, a1 and a2
+        a0_grad = -2 * np.sum(residuals)
+        a1_grad = -2 * np.sum((residuals) * x_s)
+        a2_grad = -2 * np.sum((residuals) * (x_s**2))
         return np.array([a0_grad, a1_grad, a2_grad])
 
     return gradient_func
@@ -34,6 +34,7 @@ def gradient_descent(
         diff = math.sqrt(
             gradient[0] ** 2 + gradient[1] ** 2 + gradient[2] ** 2
         )
+
         if diff < tolerance:
             break
         a0 -= gradient[0] * learning_rate
@@ -42,9 +43,6 @@ def gradient_descent(
         a0_steps.append(a0)
         a1_steps.append(a1)
         a2_steps.append(a2)
-        print(f"iteration: {i}, a0: {a0}, a1: {a1}, a2: {a2}")
-        print(f"diff: {diff}")
-        print(f"gradient: {gradient}")
     return a0_steps, a1_steps, a2_steps, a0, a1, a2
 
 
@@ -55,8 +53,8 @@ def second_degree_polynomial_regression(x_s, y_s):
     _, _, _, a0, a1, a2 = gradient_descent(
         [0, 0, 0],
         gradient_func,
-        learning_rate=0.01,
-        iterations=250,
+        learning_rate=0.0001,
+        iterations=100000,
         tolerance=0.01,
     )
 
@@ -100,14 +98,14 @@ def main():
     y = np.append(y, next_position[1])
     z = np.append(z, next_position[2])
 
-    time_step = [i for i in range(0, len(x))]
+    time_steps = [i for i in range(0, len(x))]
 
     # make a list of [x, y, z] for plot_xyz
-    # positions = np.array(list(zip(x, y, z)))
-    # plot_xyz(positions, "task2b")
-    # plot_single(time_stemp, x, "X(task2b prediction)", "Time", "X")
-    # plot_single(time_stemp, y, "Y(task2b prediction)", "Time", "Y")
-    # plot_single(time_stemp, z, "Z(task2b prediction)", "Time", "Z")
+    positions = np.array(list(zip(x, y, z)))
+    plot_xyz(positions, "task2b")
+    plot_single(time_steps, x, "X(task2b prediction)", "Time", "X")
+    plot_single(time_steps, y, "Y(task2b prediction)", "Time", "Y")
+    plot_single(time_steps, z, "Z(task2b prediction)", "Time", "Z")
 
 
 if __name__ == """__main__""":
