@@ -1,6 +1,6 @@
 import math
 import numpy as np
-from plot import plot_single, plot_xyz
+from plot import plot_convergence, plot_single, plot_xyz
 from common import POSITIONS, sum_of_square_error
 
 
@@ -10,11 +10,11 @@ def high_order_gradient(x_s, y_s):
 
     def gradient_func(a0, a1):
         y_pred = [first_degree_polynomial(a0, a1, x) for x in x_s]
-
+        sse = np.sum((y_s - y_pred) ** 2)
         # partial derivative of the loss function with respect to a0 and a1
         a0_grad = -2 * np.sum(y_s - y_pred)
         a1_grad = -2 * np.sum((y_s - y_pred) * x_s)
-        return np.array([a0_grad, a1_grad])
+        return np.array([a0_grad, a1_grad]), sse
 
     return gradient_func
 
@@ -23,11 +23,11 @@ def gradient_descent(
     start, gradient_func, learning_rate=0.01, iterations=1000, tolerance=0.01
 ):
     # start is a list of initial values [a0, a1]
-    a0_steps, a1_steps = [start[0]], [start[1]]
+    a0_steps, a1_steps, sse_steps = [start[0]], [start[1]], [0]
     a0, a1 = start
 
     for _ in range(iterations):
-        gradient = gradient_func(a0, a1)
+        gradient, sse = gradient_func(a0, a1)
         diff = math.sqrt(gradient[0] ** 2 + gradient[1] ** 2)
         if diff < tolerance:
             break
@@ -35,20 +35,24 @@ def gradient_descent(
         a1 -= gradient[1] * learning_rate
         a0_steps.append(a0)
         a1_steps.append(a1)
-    return a0_steps, a1_steps, a0, a1
+        sse_steps.append(sse)
+        print("diff: ", diff)
+    return [a0_steps, a1_steps, sse_steps], [a0, a1]
 
 
 def first_degree_polynomial_regression(x_s, y_s):
 
     gradient_func = high_order_gradient(x_s, y_s)
 
-    _, _, a0, a1 = gradient_descent(
+    [a0_steps, a1_steps, sse_steps], [a0, a1] = gradient_descent(
         [0, 0],
         gradient_func,
         learning_rate=0.01,
         iterations=1000,
         tolerance=0.01,
     )
+
+    # plot_convergence(a0_steps, a1_steps, sse_steps, "task2a convergence")
 
     # Here we can get two of coefficient and get formula of y = a0 + a1 * x
     # In this assignement, a1 will be speed of drone
