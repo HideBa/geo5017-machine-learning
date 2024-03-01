@@ -5,7 +5,7 @@ from common import POSITIONS
 
 def main():
     positions = np.array(POSITIONS)
-    plot_xyz(positions)
+    plot_xyz(positions, "plot_trajectory")
 
     x = [x for x, _, _ in positions]
     y = [y for _, y, _ in positions]

@@ -1,6 +1,6 @@
 import math
 import numpy as np
-from plot import plot_single, plot_xyz
+from plot import plot_xyz
 from common import POSITIONS, sum_of_square_error
 
 
@@ -29,7 +29,7 @@ def gradient_descent(
     a0_steps, a1_steps, a2_steps = [start[0]], [start[1]], [start[2]]
     a0, a1, a2 = start
 
-    for i in range(iterations):
+    for _ in range(iterations):
         gradient = gradient_func(a0, a1, a2)
         diff = math.sqrt(
             gradient[0] ** 2 + gradient[1] ** 2 + gradient[2] ** 2
@@ -58,13 +58,7 @@ def second_degree_polynomial_regression(x_s, y_s):
         tolerance=0.01,
     )
 
-    # Here we can get two of coefficient and get formula of y = a0 + a1 * x + a2 * x^2
-    # In this assignement, a1 will be speed of drone
-    print("a0: ", a0)
-    print("a1: ", a1)
-    print("a2: ", a2)
     sse = sum_of_square_error(y_s, x_s, lambda x: a0 + a1 * x + a2 * x**2)
-    print("sum of square error is: ", sse)
     return ((a0, a1, a2), sse)
 
 
@@ -84,28 +78,23 @@ def main():
         time_steps, z
     )
 
-    sse = x_sse + y_sse + z_sse
-    print("sum of square error is: ", sse)
+    print("SSE(x): ", x_sse)
+    print("SSE(y): ", y_sse)
+    print("SSE(z): ", z_sse)
 
     next_position = [
         second_degree_polynomial(x_a0, x_a1, x_a2, time_steps[-1] + 1),
         second_degree_polynomial(y_a0, y_a1, y_a2, time_steps[-1] + 1),
         second_degree_polynomial(z_a0, z_a1, z_a2, time_steps[-1] + 1),
     ]
-    print("Next position is: ", next_position)
 
     x = np.append(x, next_position[0])
     y = np.append(y, next_position[1])
     z = np.append(z, next_position[2])
 
-    time_steps = [i for i in range(0, len(x))]
-
     # make a list of [x, y, z] for plot_xyz
     positions = np.array(list(zip(x, y, z)))
     plot_xyz(positions, "task2b")
-    plot_single(time_steps, x, "X(task2b prediction)", "Time", "X")
-    plot_single(time_steps, y, "Y(task2b prediction)", "Time", "Y")
-    plot_single(time_steps, z, "Z(task2b prediction)", "Time", "Z")
 
 
 if __name__ == """__main__""":

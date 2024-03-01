@@ -19,7 +19,7 @@ def plot_xyz(xyz_list, title):
         ax.text(x, y, z, str(i + 1), color="skyblue")
 
     plt.show()
-    fig.savefig(f"./ass1/out/3d_plot_{title}.png")
+    # fig.savefig(f"./ass1/out/3d_plot_{title}.png")
 
 
 def plot_single(x, y, title, xlabel, ylabel):
@@ -28,7 +28,7 @@ def plot_single(x, y, title, xlabel, ylabel):
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.show()
-    plt.savefig(f"./ass1/out/{title}.png")
+    # plt.savefig(f"./ass1/out/{title}.png")
 
 
 def plot_convergence(
@@ -52,5 +52,5 @@ def plot_convergence(
     ax.set_title(title)
 
     plt.show()
-    plt.savefig(f"./ass1/out/{title}.png")
+    # plt.savefig(f"./ass1/out/{title}.png")
     plt.close()
