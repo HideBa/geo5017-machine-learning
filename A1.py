@@ -174,9 +174,9 @@ def constant_acceleration():
         # Repeat for y and z dimensions
 
     # Compute residual errors for each dimension
-    residual_error_x = np.sum((0.5 * a_x * time**2 + v_x * time + c_x - xyz[:, 0])**2)
-    residual_error_y = np.sum((0.5 * a_y * time**2 + v_y * time + c_y - xyz[:, 1])**2)
-    residual_error_z = np.sum((0.5 * a_z * time**2 + v_z * time + c_z - xyz[:, 2])**2)
+    residual_error_x = np.sum((0.5 * a_x * time**2 + v_x * time + c_x - x_positions)**2)
+    residual_error_y = np.sum((0.5 * a_y * time**2 + v_y * time + c_y - y_positions)**2)
+    residual_error_z = np.sum((0.5 * a_z * time**2 + v_z * time + c_z - z_positions)**2)
 
 # Total residual error
     total_residual_error = residual_error_x + residual_error_y + residual_error_z
