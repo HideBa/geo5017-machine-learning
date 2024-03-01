@@ -173,6 +173,14 @@ def constant_acceleration():
         c_z -= alpha * grad_c_z
         # Repeat for y and z dimensions
 
+    # Compute residual errors for each dimension
+    residual_error_x = np.sum((0.5 * a_x * time**2 + v_x * time + c_x - xyz[:, 0])**2)
+    residual_error_y = np.sum((0.5 * a_y * time**2 + v_y * time + c_y - xyz[:, 1])**2)
+    residual_error_z = np.sum((0.5 * a_z * time**2 + v_z * time + c_z - xyz[:, 2])**2)
+
+# Total residual error
+    total_residual_error = residual_error_x + residual_error_y + residual_error_z
+
     # Calculate the next predicted positions in each dimension based on acceleration
     next_time_point = time[-1] + 1
     next_predicted_x = 0.5 * a_x * next_time_point**2 + v_x * next_time_point + c_x
@@ -181,5 +189,6 @@ def constant_acceleration():
 
     # Print the next predicted position
     print(f"Next predicted position at time {next_time_point}: (X, Y, Z) = ({next_predicted_x}, {next_predicted_y}, {next_predicted_z})")
+    print("total residual error = " + str(total_residual_error))
 
 constant_acceleration()
