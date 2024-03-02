@@ -29,7 +29,9 @@ def gradient_descent(
     a0_steps, a1_steps, a2_steps = [start[0]], [start[1]], [start[2]]
     a0, a1, a2 = start
 
+    num = 0
     for _ in range(iterations):
+        num += 1
         gradient = gradient_func(a0, a1, a2)
         diff = math.sqrt(
             gradient[0] ** 2 + gradient[1] ** 2 + gradient[2] ** 2
@@ -43,6 +45,7 @@ def gradient_descent(
         a0_steps.append(a0)
         a1_steps.append(a1)
         a2_steps.append(a2)
+    print("iter: ", num)
     return a0_steps, a1_steps, a2_steps, a0, a1, a2
 
 
@@ -55,7 +58,7 @@ def second_degree_polynomial_regression(x_s, y_s):
         gradient_func,
         learning_rate=0.0001,
         iterations=100000,
-        tolerance=0.01,
+        tolerance=0.001,
     )
 
     sse = sum_of_square_error(y_s, x_s, lambda x: a0 + a1 * x + a2 * x**2)
