@@ -59,10 +59,18 @@ def constant_speed():
     final_predictions_y = v_y * time + c_y
     final_predictions_z = v_z * time + c_z
 
+    print(final_predictions_x,v_x,c_x)
+    print(final_predictions_y,v_y,c_y)
+    print(final_predictions_z,v_z,c_z)
+
     # Calculate the residual sum of squares (RSS) error for each dimension
     rss_error_x = np.sum((final_predictions_x - x_positions) ** 2)
     rss_error_y = np.sum((final_predictions_y - y_positions) ** 2)
     rss_error_z = np.sum((final_predictions_z - z_positions) ** 2)
+
+    print(rss_error_x)
+    print(rss_error_y)
+    print(rss_error_z)
     # Total RSS error is the sum of individual RSS errors
     total_rss_error = rss_error_x + rss_error_y + rss_error_z
 # Calculate the next time point (one second after the last time point in the time array)
