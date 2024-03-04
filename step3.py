@@ -59,6 +59,10 @@ def constant_acceleration():
     residual_error_y = np.sum((0.5 * a_y * time**2 + v_y * time + c_y - y_positions)**2)
     residual_error_z = np.sum((0.5 * a_z * time**2 + v_z * time + c_z - z_positions)**2)
 
+    print(residual_error_x)
+    print(residual_error_y)
+    print(residual_error_z)
+
 # Total residual error
     total_residual_error = residual_error_x + residual_error_y + residual_error_z
 
@@ -71,5 +75,5 @@ def constant_acceleration():
     # Print the next predicted position
     print(f"Next predicted position at time {next_time_point}: (X, Y, Z) = ({next_predicted_x}, {next_predicted_y}, {next_predicted_z})")
     print("total residual error = " + str(total_residual_error))
-
+    
 constant_acceleration()
