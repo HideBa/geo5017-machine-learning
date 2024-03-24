@@ -160,3 +160,6 @@ cython_debug/
 #.idea/
 
 out/
+.DS_Store
+ass2/pointclouds-500
+*.zip

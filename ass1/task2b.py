@@ -54,7 +54,7 @@ def second_degree_polynomial_regression(x_s, y_s):
     gradient_func = high_order_gradient(x_s, y_s)
 
     _, _, _, a0, a1, a2 = gradient_descent(
-        [0, 0, 0],
+        [4, 7, 100],
         gradient_func,
         learning_rate=0.0001,
         iterations=100000,
@@ -84,6 +84,12 @@ def main():
     print("SSE(x): ", x_sse)
     print("SSE(y): ", y_sse)
     print("SSE(z): ", z_sse)
+
+    print("--------formula--------")
+    print(f"x = {round(x_a0, 2)} + {round(x_a1, 2)}t + {round(x_a2, 2)}t**2")
+    print(f"y = {round(y_a0, 2)} + {round(y_a1, 2)}t + {round(y_a2, 2)}t**2")
+    print(f"z = {round(z_a0, 2)} + {round(z_a1, 2)}t + {round(z_a2, 2)}t**2")
+    print("-----------------------")
 
     next_position = [
         second_degree_polynomial(x_a0, x_a1, x_a2, time_steps[-1] + 1),

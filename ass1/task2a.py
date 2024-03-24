@@ -84,6 +84,17 @@ def main():
     print("SSE(y): ", y_sse)
     print("SSE(z): ", z_sse)
 
+    print("--------formula--------")
+    print(f"x = {round(x_a0, 2)} + {round(x_a1, 2)}t")
+    print(f"y = {round(y_a0, 2)} + {round(y_a1, 2)}t")
+    print(f"z = {round(z_a0, 2)} + {round(z_a1, 2)}t")
+    print("-----------------------")
+
+    position0 = [
+        x_a0 + x_a1 * 0,
+        y_a0 + y_a1 * 0,
+        z_a0 + z_a1 * 0,
+    ]
     next_position = [
         x_a0 + x_a1 * (time_steps[-1] + 1),
         y_a0 + y_a1 * (time_steps[-1] + 1),
@@ -91,6 +102,11 @@ def main():
     ]
 
     print("Next position is: ", next_position)
+    print("position 0 is: ", position0)
+    dist = math.dist(position0, next_position)
+    print("distance", dist)
+    speed = dist / (time_steps[-1] + 1)
+    print("speed:", speed)
 
     x = np.append(x, next_position[0])
     y = np.append(y, next_position[1])
