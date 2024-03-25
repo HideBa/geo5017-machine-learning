@@ -41,3 +41,12 @@ ass1-2b:
 .PHONY: ass1-2c
 ass1-2c:
 	poetry run python $(ASS1)/task2c.py
+
+.PHONY: ass2-vis
+ass2-vis:
+	poetry run python $(ASS2)/visualize.py
+
+
+.PHONEY: ass2-all
+ass2-all:
+	poetry run python $(ASS2)/main.py
